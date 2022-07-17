@@ -6,13 +6,12 @@ class UserController {
   async store(request, response) {
     const schema = Yup.object().shape({
       responsible_1: Yup.string().required(),
-      email_1: Yup.string().email().required(),
+      email: Yup.string().email().required(),
       kinshi_1: Yup.string().required(),
       cpf_1: Yup.string().required().min(14).max(14),
       telephone_1: Yup.string().required().min(15).max(15),
       birthdate: Yup.string().required(),
       responsible_2: Yup.string().required(),
-      email_2: Yup.string().email().required(),
       kinshi_2: Yup.string().required(),
       cpf_2: Yup.string().required().min(14).max(14),
       telephone_2: Yup.string().required().min(15).max(15),
@@ -28,13 +27,12 @@ class UserController {
 
     const {
       responsible_1,
-      email_1,
+      email,
       kinshi_1,
       cpf_1,
       telephone_1,
       birthdate,
       responsible_2,
-      email_2,
       kinshi_2,
       cpf_2,
       telephone_2,
@@ -43,7 +41,7 @@ class UserController {
     } = request.body
 
     const userExists = await User.findOne({
-      where: { email_1, email_2 },
+      where: { email },
     })
 
     if (userExists) {
@@ -56,13 +54,12 @@ class UserController {
     const user = await User.create({
       id: v4(),
       responsible_1,
-      email_1,
+      email,
       kinshi_1,
       cpf_1,
       telephone_1,
       birthdate,
       responsible_2,
-      email_2,
       kinshi_2,
       cpf_2,
       telephone_2,
@@ -72,7 +69,7 @@ class UserController {
 
     return response
       .status(201)
-      .json({ id: user.id, responsible_1, email_1, type_acess })
+      .json({ id: user.id, responsible_1, email, type_acess })
   }
 }
 

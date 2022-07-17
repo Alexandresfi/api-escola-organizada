@@ -36,7 +36,7 @@ module.exports = {
         allowNull: false,
       },
 
-      email_1: {
+      email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
@@ -61,12 +61,6 @@ module.exports = {
       telephone_2: {
         type: Sequelize.STRING,
         allowNull: true,
-      },
-
-      email_2: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        unique: true,
       },
 
       password_has: {
