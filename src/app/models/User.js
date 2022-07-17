@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize'
+import bcrypt from 'bcrypt'
 
 class User extends Model {
   static init(sequelize) {
@@ -15,6 +16,7 @@ class User extends Model {
         kinshi_2: Sequelize.STRING,
         cpf_2: Sequelize.STRING,
         telephone_2: Sequelize.STRING,
+        password: Sequelize.VIRTUAL,
         password_has: Sequelize.STRING,
         type_acess: Sequelize.STRING,
       },
@@ -22,6 +24,13 @@ class User extends Model {
         sequelize,
       }
     )
+
+    this.addHook('beforeSave', async (user) => {
+      if (user.password) {
+        user.password_has = await bcrypt.hash(user.password, 15)
+      }
+    })
+    return this
   }
 }
 
