@@ -16,7 +16,6 @@ class UserController {
       cpf_2: Yup.string().required().min(14).max(14),
       telephone_2: Yup.string().required().min(15).max(15),
       password: Yup.string().required().min(8),
-      type_acess: Yup.string().required(),
     })
 
     try {
@@ -37,7 +36,6 @@ class UserController {
       cpf_2,
       telephone_2,
       password,
-      type_acess,
     } = request.body
 
     const userExists = await User.findOne({
@@ -64,12 +62,9 @@ class UserController {
       cpf_2,
       telephone_2,
       password,
-      type_acess,
     })
 
-    return response
-      .status(201)
-      .json({ id: user.id, responsible_1, email, type_acess })
+    return response.status(201).json({ id: user.id, responsible_1, email })
   }
 }
 
