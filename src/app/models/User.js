@@ -35,6 +35,13 @@ class User extends Model {
   checkPassword(password) {
     return bcrypt.compare(password, this.password_has)
   }
+
+  static associate(models) {
+    this.belongsTo(models.Address, {
+      foreignKey: 'address_id',
+      as: 'address',
+    })
+  }
 }
 
 export default User

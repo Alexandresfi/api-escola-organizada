@@ -49,6 +49,8 @@ class UserController {
       })
     }
 
+    const address_id = cpf_1
+
     const user = await User.create({
       id: v4(),
       responsible_1,
@@ -62,9 +64,12 @@ class UserController {
       cpf_2,
       telephone_2,
       password,
+      address_id,
     })
 
-    return response.status(201).json({ id: user.id, responsible_1, email })
+    return response
+      .status(201)
+      .json({ id: user.id, responsible_1, email, address_id })
   }
 }
 
