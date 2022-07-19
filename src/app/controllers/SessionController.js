@@ -35,6 +35,7 @@ class SessionController {
       email,
       responsible_1: user.responsible_1,
       responsible_2: user.responsible_2,
+      address: user.address_id,
       type_acess: user.type_acess,
     })
   }
