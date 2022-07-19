@@ -57,6 +57,8 @@ class TeacherController {
       console.log(err)
     }
 
+    const address_id = cpf
+
     try {
       const teacher = await Teacher.create({
         id: v4(),
@@ -73,6 +75,7 @@ class TeacherController {
         graduation_year,
         graduation_titles,
         password,
+        address_id,
       })
 
       return response.status(201).json({ id: teacher.id, fullname, email })
