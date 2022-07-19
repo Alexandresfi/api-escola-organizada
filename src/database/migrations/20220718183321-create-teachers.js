@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('teachers', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -10,28 +10,27 @@ module.exports = {
         primaryKey: true, // isto quer dizer que id numca vai se repetir
       },
 
-      responsible_1: {
+      fullname: {
         type: Sequelize.STRING,
         allowNull: false,
       },
 
-      kinshi_1: {
+      surname: {
         type: Sequelize.STRING,
         allowNull: false,
       },
 
-      cpf_1: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        primaryKey: true,
-      },
-
-      telephone_1: {
+      gener: {
         type: Sequelize.STRING,
         allowNull: false,
       },
 
       birthdate: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
+      telephone: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -42,25 +41,34 @@ module.exports = {
         unique: true,
       },
 
-      responsible_2: {
+      cpf: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+
+      rg: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+
+      number_card: {
         type: Sequelize.STRING,
         allowNull: false,
       },
 
-      kinshi_2: {
+      university: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
 
-      cpf_2: {
+      graduation_year: {
         type: Sequelize.STRING,
-        allowNull: true,
-        primaryKey: true,
+        allowNull: false,
       },
 
-      telephone_2: {
+      graduation_titles: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
 
       password_has: {
@@ -71,7 +79,7 @@ module.exports = {
       type_acess: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'responsible',
+        defaultValue: 'teacher',
       },
 
       created_at: {
@@ -87,6 +95,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('users')
+    await queryInterface.dropTable('teachers')
   },
 }
