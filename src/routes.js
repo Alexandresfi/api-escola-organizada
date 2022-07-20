@@ -4,12 +4,15 @@ import TeacherController from './app/controllers/TeacherController'
 import SessionTeacherController from './app/controllers/SessionTeacherController'
 import UserController from './app/controllers/UserController'
 import AddressController from './app/controllers/AddressController'
+import StudentController from './app/controllers/StudentController'
 
 const routes = new Router()
 
-routes.post('/users', UserController.store)
+routes.post('/user', UserController.store)
 
-routes.post('/teachers', TeacherController.store)
+routes.post('/teacher', TeacherController.store)
+
+routes.post('/student', StudentController.store)
 
 routes.post('/address', AddressController.store)
 
