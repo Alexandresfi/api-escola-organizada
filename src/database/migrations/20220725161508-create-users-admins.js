@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('teachers', {
+    await queryInterface.createTable('user_admins', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -15,25 +15,15 @@ module.exports = {
         allowNull: false,
       },
 
-      surname: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
       email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
 
-      school_class: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        allowNull: true,
-      },
-
-      school_subjects: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        allowNull: true,
+      telephone: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
 
       cpf: {
@@ -46,37 +36,12 @@ module.exports = {
         allowNull: true,
       },
 
-      telephone: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
       gener: {
         type: Sequelize.STRING,
         allowNull: false,
       },
 
       birthdate: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
-      number_card: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
-      university: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
-      graduation_year: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
-      graduation_titles: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -89,7 +54,7 @@ module.exports = {
       type_acess: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'teacher',
+        defaultValue: 'admin',
       },
 
       created_at: {
@@ -105,6 +70,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('teachers')
+    await queryInterface.dropTable('user_admins')
   },
 }

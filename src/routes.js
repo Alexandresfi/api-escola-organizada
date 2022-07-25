@@ -7,14 +7,20 @@ import AddressController from './app/controllers/AddressController'
 import StudentController from './app/controllers/StudentController'
 
 import authMiddleware from './app/middlewares/auth'
+import UserAdminController from './app/controllers/UserAdminController'
+import SessionAdminController from './app/controllers/SessionAdminController'
 
 const routes = new Router()
 
 routes.post('/session', SessionController.store)
 
+routes.post('/session-admin', SessionAdminController.store)
+
 routes.post('/session-teacher', SessionTeacherController.store)
 
 routes.post('/user', UserController.store)
+
+routes.post('/user-admin', UserAdminController.store)
 
 routes.post('/teacher', TeacherController.store)
 
