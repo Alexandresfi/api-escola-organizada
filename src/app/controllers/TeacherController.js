@@ -40,6 +40,8 @@ class TeacherController {
       graduation_titles,
       graduation_year,
       password,
+      school_class,
+      school_subjects,
     } = request.body
 
     try {
@@ -76,9 +78,13 @@ class TeacherController {
         graduation_titles,
         password,
         address_id,
+        school_class,
+        school_subjects,
       })
 
-      return response.status(201).json({ id: teacher.id, fullname, email })
+      return response
+        .status(201)
+        .json({ id: teacher.id, fullname, email, school_class })
     } catch (err) {
       console.log('error created teacher', err)
     }

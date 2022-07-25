@@ -13,6 +13,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.removeColumn('teachers', 'address-id')
+    await queryInterface.removeColumn('teachers', 'address_id')
   },
 }

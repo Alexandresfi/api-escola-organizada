@@ -16,7 +16,14 @@ class StundentController {
       return response.status(400).json({ err: err.errors })
     }
 
-    const { name, year, school_class, responsible_id, grades } = request.body
+    const {
+      name,
+      year,
+      school_class,
+      responsible_id,
+      grades,
+      school_attendance,
+    } = request.body
 
     try {
       const student = await Student.create({
@@ -25,9 +32,10 @@ class StundentController {
         school_class,
         responsible_id,
         grades,
+        school_attendance,
       })
 
-      console.log(grades.nota_1)
+      console.log(grades)
 
       return response.status(201).json({ student })
     } catch (err) {
