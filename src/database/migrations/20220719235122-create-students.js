@@ -26,7 +26,12 @@ module.exports = {
       },
 
       grades: {
-        type: Sequelize.JSON,
+        type: Sequelize.ARRAY(Sequelize.JSON),
+        allowNull: true,
+      },
+
+      school_attendance: {
+        type: Sequelize.ARRAY(Sequelize.JSON),
         allowNull: true,
       },
 

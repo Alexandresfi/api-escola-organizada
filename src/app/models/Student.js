@@ -7,7 +7,8 @@ class Student extends Model {
         name: Sequelize.STRING,
         year: Sequelize.INTEGER,
         school_class: Sequelize.STRING,
-        grades: Sequelize.JSON,
+        grades: Sequelize.ARRAY(Sequelize.JSON),
+        school_attendance: Sequelize.ARRAY(Sequelize.JSON),
       },
       {
         sequelize,

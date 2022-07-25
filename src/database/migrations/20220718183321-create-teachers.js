@@ -20,25 +20,20 @@ module.exports = {
         allowNull: false,
       },
 
-      gener: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
-      birthdate: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
-      telephone: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
       email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+      },
+
+      school_class: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: true,
+      },
+
+      school_subjects: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: true,
       },
 
       cpf: {
@@ -51,6 +46,20 @@ module.exports = {
         allowNull: true,
       },
 
+      telephone: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
+      gener: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
+      birthdate: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       number_card: {
         type: Sequelize.STRING,
         allowNull: false,

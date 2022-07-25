@@ -17,6 +17,8 @@ class Teacher extends Model {
         university: Sequelize.STRING,
         graduation_year: Sequelize.STRING,
         graduation_titles: Sequelize.STRING,
+        school_class: Sequelize.ARRAY(Sequelize.STRING),
+        school_subjects: Sequelize.ARRAY(Sequelize.STRING),
         password: Sequelize.VIRTUAL,
         password_has: Sequelize.STRING,
         type_acess: Sequelize.STRING,
