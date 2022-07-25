@@ -4,10 +4,11 @@ import Address from '../app/models/Address'
 import Student from '../app/models/Student'
 import Teacher from '../app/models/Teacher'
 import User from '../app/models/User'
+import UserAdmin from '../app/models/UserAdmin'
 
 import configDatabase from '../config/database'
 
-const models = [User, Teacher, Address, Student]
+const models = [User, Teacher, Address, Student, UserAdmin]
 class Database {
   constructor() {
     this.init()
