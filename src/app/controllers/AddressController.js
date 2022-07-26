@@ -50,6 +50,12 @@ class AddressController {
       console.log('error at address', err)
     }
   }
+
+  async index(request, response) {
+    const addresses = await Address.findAll()
+
+    return response.json(addresses)
+  }
 }
 
 export default new AddressController()
