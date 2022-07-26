@@ -59,6 +59,12 @@ class UserAdminController {
       console.log(err)
     }
   }
+
+  async index(request, response) {
+    const users = await UserAdmin.findAll()
+
+    return response.json(users)
+  }
 }
 
 export default new UserAdminController()

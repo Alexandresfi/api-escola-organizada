@@ -18,17 +18,22 @@ routes.post('/session-admin', SessionAdminController.store)
 
 routes.post('/session-teacher', SessionTeacherController.store)
 
+routes.use(authMiddleware)
+
 routes.post('/user', UserController.store)
+routes.get('/users', UserController.index)
 
 routes.post('/user-admin', UserAdminController.store)
+routes.get('/users-admin', UserAdminController.index)
 
 routes.post('/teacher', TeacherController.store)
+routes.get('/teachers', TeacherController.index)
 
 routes.post('/student', StudentController.store)
+routes.get('/students', StudentController.index)
 
 routes.post('/address', AddressController.store)
-
-routes.use(authMiddleware)
+routes.get('/address', AddressController.index)
 
 routes.get('/', (request, response) => {
   return response.json({ message: 'Hello World' })

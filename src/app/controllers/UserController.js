@@ -71,6 +71,12 @@ class UserController {
       .status(201)
       .json({ id: user.id, responsible_1, email, address_id })
   }
+
+  async index(request, response) {
+    const users = await User.findAll()
+
+    return response.json(users)
+  }
 }
 
 export default new UserController()

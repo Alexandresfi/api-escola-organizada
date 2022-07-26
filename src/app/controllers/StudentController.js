@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import Student from '../models/Student'
+import UserAdmin from '../models/UserAdmin'
 
 class StundentController {
   async store(request, response) {
@@ -26,6 +27,13 @@ class StundentController {
     } = request.body
 
     try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      console.log(admin, 'aqui')
+    } catch (err) {
+      return response.status(400).json({ err: 'Você não tem permissão' })
+    }
+
+    try {
       const student = await Student.create({
         name,
         year,
@@ -41,6 +49,14 @@ class StundentController {
     } catch (err) {
       console.log('error at address', err)
     }
+  }
+
+  async index(request, response) {
+    const students = await Student.findAll()
+
+    console.log(response)
+
+    return response.json(students)
   }
 }
 

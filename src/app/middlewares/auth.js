@@ -6,7 +6,7 @@ export default (request, response, next) => {
 
   !authToken && response.status(401).json({ error: 'Token não foi enviado' })
 
-  const token = authToken.splint('')[1]
+  const token = authToken.split(' ')[1]
 
   try {
     jwt.verify(token, authConfig.secret, function (err, decoded) {

@@ -89,6 +89,12 @@ class TeacherController {
       console.log('error created teacher', err)
     }
   }
+
+  async index(request, response) {
+    const teachers = await Teacher.findAll()
+
+    return response.json(teachers)
+  }
 }
 
 export default new TeacherController()
