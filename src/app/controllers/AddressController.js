@@ -75,6 +75,8 @@ class AddressController {
 
     return response.json(addresses)
   }
+
+  async update(request, response) {}
 }
 
 export default new AddressController()

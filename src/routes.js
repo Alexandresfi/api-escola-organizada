@@ -22,18 +22,23 @@ routes.use(authMiddleware)
 
 routes.post('/user', UserController.store)
 routes.get('/users', UserController.index)
+routes.put('/user/:id', UserController.update)
 
 routes.post('/user-admin', UserAdminController.store)
 routes.get('/users-admin', UserAdminController.index)
+routes.put('/user-admin/:id', UserAdminController.update)
 
 routes.post('/teacher', TeacherController.store)
 routes.get('/teachers', TeacherController.index)
+routes.put('/teacher/:id', TeacherController.update)
 
 routes.post('/student', StudentController.store)
 routes.get('/students', StudentController.index)
+routes.put('/student/:id', StudentController.update)
 
 routes.post('/address', AddressController.store)
 routes.get('/address', AddressController.index)
+routes.put('/address', AddressController.update)
 
 routes.get('/', (request, response) => {
   return response.json({ message: 'Hello World' })

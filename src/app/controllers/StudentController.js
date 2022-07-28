@@ -67,6 +67,8 @@ class StundentController {
 
     return response.json(students)
   }
+
+  async update(request, response) {}
 }
 
 export default new StundentController()

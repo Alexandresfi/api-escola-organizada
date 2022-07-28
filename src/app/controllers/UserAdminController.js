@@ -61,10 +61,21 @@ class UserAdminController {
   }
 
   async index(request, response) {
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(400).json({ err: 'Você não tem permissão' })
+    }
+
     const users = await UserAdmin.findAll()
 
     return response.json(users)
   }
+
+  async update(request, response) {}
 }
 
 export default new UserAdminController()
