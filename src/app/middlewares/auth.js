@@ -19,6 +19,6 @@ export default (request, response, next) => {
       return next()
     })
   } catch (err) {
-    return response.status(401).json({ error: 'Token inválido ' })
+    return response.status(401).json({ error: 'Token inválido' })
   }
 }
