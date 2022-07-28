@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import Address from '../models/Address'
+import UserAdmin from '../models/UserAdmin'
 
 class AddressController {
   async store(request, response) {
@@ -15,6 +16,15 @@ class AddressController {
       district: Yup.string().required(),
       state: Yup.string().required(),
     })
+
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(400).json({ err: 'Você não tem permissão' })
+    }
 
     try {
       await schema.validateSync(request.body, { abortEarly: false })
@@ -52,6 +62,15 @@ class AddressController {
   }
 
   async index(request, response) {
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(400).json({ err: 'Você não tem permissão' })
+    }
+
     const addresses = await Address.findAll()
 
     return response.json(addresses)

@@ -28,7 +28,9 @@ class StundentController {
 
     try {
       const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
-      console.log(admin, 'aqui')
+      if (!admin) {
+        throw new Error()
+      }
     } catch (err) {
       return response.status(400).json({ err: 'Você não tem permissão' })
     }
@@ -52,9 +54,16 @@ class StundentController {
   }
 
   async index(request, response) {
-    const students = await Student.findAll()
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(400).json({ err: 'Você não tem permissão' })
+    }
 
-    console.log(response)
+    const students = await Student.findAll()
 
     return response.json(students)
   }

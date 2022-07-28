@@ -1,6 +1,7 @@
 import { v4 } from 'uuid'
 import * as Yup from 'yup'
 import Teacher from '../models/Teacher'
+import UserAdmin from '../models/UserAdmin'
 
 class TeacherController {
   async store(request, response) {
@@ -43,6 +44,15 @@ class TeacherController {
       school_class,
       school_subjects,
     } = request.body
+
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(400).json({ err: 'Você não tem permissão' })
+    }
 
     try {
       const userExists = await Teacher.findOne({
@@ -91,6 +101,15 @@ class TeacherController {
   }
 
   async index(request, response) {
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(400).json({ err: 'Você não tem permissão' })
+    }
+
     const teachers = await Teacher.findAll()
 
     return response.json(teachers)
