@@ -1,9 +1,11 @@
 import * as Yup from 'yup'
-import Teacher from '../models/Teacher'
+
 import jwt from 'jsonwebtoken'
 import authConfig from '../../config/auth'
 
-class SessionTeacherController {
+import UserAdmin from '../models/UserAdmin'
+
+class SessionAdminController {
   async store(request, response) {
     const schema = Yup.object().shape({
       email: Yup.string().email().required(),
@@ -20,7 +22,7 @@ class SessionTeacherController {
 
     const { email, password } = request.body
 
-    const user = await Teacher.findOne({
+    const user = await UserAdmin.findOne({
       where: { email },
     })
 
@@ -34,7 +36,7 @@ class SessionTeacherController {
 
     return response.status(200).json({
       id: user.id,
-      nome: user.surname,
+      fullname: user.fullname,
       email,
       type_acess: user.type_acess,
       token: jwt.sign({ id: user.id }, authConfig.secret, {
@@ -44,4 +46,4 @@ class SessionTeacherController {
   }
 }
 
-export default new SessionTeacherController()
+export default new SessionAdminController()

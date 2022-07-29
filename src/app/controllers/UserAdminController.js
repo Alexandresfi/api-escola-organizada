@@ -1,21 +1,17 @@
 import { v4 } from 'uuid'
-import User from '../models/User'
 import * as Yup from 'yup'
 import UserAdmin from '../models/UserAdmin'
 
-class UserController {
+class UserAdminController {
   async store(request, response) {
     const schema = Yup.object().shape({
-      responsible_1: Yup.string().required(),
+      fullname: Yup.string().required(),
       email: Yup.string().email().required(),
-      kinshi_1: Yup.string().required(),
-      cpf_1: Yup.string().required().min(14).max(14),
-      telephone_1: Yup.string().required().min(15).max(15),
+      telephone: Yup.string().required().min(15).max(15),
+      cpf: Yup.string().required().min(14).max(14),
+      rg: Yup.string().required(),
       birthdate: Yup.string().required(),
-      responsible_2: Yup.string().required(),
-      kinshi_2: Yup.string().required(),
-      cpf_2: Yup.string().required().min(14).max(14),
-      telephone_2: Yup.string().required().min(15).max(15),
+      gener: Yup.string().required(),
       password: Yup.string().required().min(8),
     })
 
@@ -24,20 +20,6 @@ class UserController {
     } catch (err) {
       return response.status(400).json({ err: err.errors })
     }
-
-    const {
-      responsible_1,
-      email,
-      kinshi_1,
-      cpf_1,
-      telephone_1,
-      birthdate,
-      responsible_2,
-      kinshi_2,
-      cpf_2,
-      telephone_2,
-      password,
-    } = request.body
 
     try {
       const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
@@ -48,44 +30,47 @@ class UserController {
       return response.status(401).json({ err: 'you do not have permission' })
     }
 
+    const { fullname, email, telephone, cpf, rg, birthdate, password, gener } =
+      request.body
+
     try {
-      const userExists = await User.findOne({
+      const userExists = await UserAdmin.findOne({
         where: { email },
       })
+
       if (userExists) {
-        throw new Error()
+        return response.status(400).json({
+          error:
+            'Please check the emails, both or one of them is already registered',
+        })
       }
-    } catch (error) {
+    } catch (err) {
+      console.log(err)
       return response.status(400).json({
         error:
           'Please check the emails, both or one of them is already registered',
       })
     }
 
-    const address_id = cpf_1
-
     try {
-      const user = await User.create({
+      const user = await UserAdmin.create({
         id: v4(),
-        responsible_1,
+        fullname,
         email,
-        kinshi_1,
-        cpf_1,
-        telephone_1,
+        telephone,
+        cpf,
         birthdate,
-        responsible_2,
-        kinshi_2,
-        cpf_2,
-        telephone_2,
+        rg,
+        gener,
         password,
-        address_id,
       })
 
       return response
         .status(201)
-        .json({ id: user.id, responsible_1, email, address_id })
-    } catch (error) {
-      return response.status(400).json(error)
+        .json({ id: user.id, fullname, email, type_acess: user.type_acess })
+    } catch (err) {
+      console.log(err)
+      return response.status(400).json()
     }
   }
 
@@ -99,20 +84,20 @@ class UserController {
       return response.status(401).json({ err: 'you do not have permission' })
     }
 
-    const users = await User.findAll()
+    const users = await UserAdmin.findAll()
 
-    return response.status(200).json(users)
+    return response.json(users)
   }
 
   async update(request, response) {
     const schema = Yup.object().shape({
-      responsible_1: Yup.string(),
-      kinshi_1: Yup.string(),
-      telephone_1: Yup.string().min(15).max(15),
+      fullname: Yup.string(),
+      email: Yup.string().email(),
+      telephone: Yup.string().min(15).max(15),
+      cpf: Yup.string().min(14).max(14),
+      rg: Yup.string(),
       birthdate: Yup.string(),
-      responsible_2: Yup.string(),
-      kinshi_2: Yup.string(),
-      telephone_2: Yup.string().min(15).max(15),
+      gener: Yup.string(),
       password: Yup.string().min(8),
     })
 
@@ -121,19 +106,6 @@ class UserController {
     } catch (err) {
       return response.status(400).json({ err: err.errors })
     }
-
-    const {
-      responsible_1,
-      kinshi_1,
-      cpf_1,
-      telephone_1,
-      birthdate,
-      responsible_2,
-      kinshi_2,
-      cpf_2,
-      telephone_2,
-      password,
-    } = request.body
 
     try {
       const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
@@ -144,40 +116,39 @@ class UserController {
       return response.status(401).json({ err: 'you do not have permission' })
     }
 
+    const { fullname, email, telephone, cpf, rg, birthdate, password, gener } =
+      request.body
+
     const { id } = request.params
 
     try {
-      const userExists = await User.findByPk(id)
-
-      if (!userExists) {
+      const userAdmin = await UserAdmin.findByPk(id)
+      if (!userAdmin) {
         throw new Error()
       }
     } catch (error) {
-      return response.status(400).json({
-        error: 'User does not exist',
-      })
+      return response.status(400).json({ error: 'User does not exist' })
     }
+
     try {
-      await User.update(
+      await UserAdmin.update(
         {
-          responsible_1,
-          kinshi_1,
-          cpf_1,
-          telephone_1,
+          fullname,
+          email,
+          telephone,
+          cpf,
           birthdate,
-          responsible_2,
-          kinshi_2,
-          cpf_2,
-          telephone_2,
+          rg,
+          gener,
           password,
         },
         { where: { id } }
       )
 
-      return response.status(201).json()
-    } catch (error) {
-      console.log(error)
-      return response.status(400).json(error)
+      return response.status(200).json()
+    } catch (err) {
+      console.log(err)
+      return response.status(400).json(err)
     }
   }
 
@@ -194,7 +165,7 @@ class UserController {
     const { id } = request.params
 
     try {
-      const user = await User.findByPk(id)
+      const user = await UserAdmin.findByPk(id)
       if (!user) {
         throw new Error()
       }
@@ -203,7 +174,7 @@ class UserController {
     }
 
     try {
-      await User.destroy({ where: { id } })
+      await UserAdmin.destroy({ where: { id } })
       return response.status(200).json({ message: 'deleted user ' })
     } catch (error) {
       console.log('error: ', error)
@@ -212,4 +183,4 @@ class UserController {
   }
 }
 
-export default new UserController()
+export default new UserAdminController()

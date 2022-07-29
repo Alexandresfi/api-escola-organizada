@@ -17,6 +17,8 @@ class Teacher extends Model {
         university: Sequelize.STRING,
         graduation_year: Sequelize.STRING,
         graduation_titles: Sequelize.STRING,
+        school_class: Sequelize.ARRAY(Sequelize.STRING),
+        school_subjects: Sequelize.ARRAY(Sequelize.STRING),
         password: Sequelize.VIRTUAL,
         password_has: Sequelize.STRING,
         type_acess: Sequelize.STRING,
@@ -36,6 +38,13 @@ class Teacher extends Model {
 
   checkPassword(password) {
     return bcrypt.compare(password, this.password_has)
+  }
+
+  static associate(models) {
+    this.belongsTo(models.Address, {
+      foreignKey: 'address_id',
+      as: 'address',
+    })
   }
 }
 
