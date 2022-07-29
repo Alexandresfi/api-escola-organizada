@@ -202,6 +202,36 @@ class TeacherController {
       return response.status(400).json(err)
     }
   }
+
+  async delete(request, response) {
+    try {
+      const admin = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(401).json({ err: 'you do not have permission' })
+    }
+
+    const { id } = request.params
+
+    try {
+      const teacher = await Teacher.findByPk(id)
+      if (!teacher) {
+        throw new Error()
+      }
+    } catch (error) {
+      return response.status(400).json({ message: 'teacher does exist' })
+    }
+
+    try {
+      await Teacher.destroy({ where: { id } })
+      return response.status(200).json({ message: 'deleted teacher ' })
+    } catch (error) {
+      console.log('error: ', error)
+      return response.status(400).json(error)
+    }
+  }
 }
 
 export default new TeacherController()

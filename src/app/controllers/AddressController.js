@@ -148,6 +148,36 @@ class AddressController {
       return response.status(400).json(err)
     }
   }
+
+  async delete(request, response) {
+    try {
+      const admin = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(401).json({ err: 'you do not have permission' })
+    }
+
+    const { id } = request.params
+
+    try {
+      const address = await Address.findByPk(id)
+      if (!address) {
+        throw new Error()
+      }
+    } catch (error) {
+      return response.status(400).json({ message: 'address does exist' })
+    }
+
+    try {
+      await Address.destroy({ where: { id } })
+      return response.status(200).json({ message: 'deleted address ' })
+    } catch (error) {
+      console.log('error: ', error)
+      return response.status(400).json(error)
+    }
+  }
 }
 
 export default new AddressController()
