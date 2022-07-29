@@ -180,6 +180,36 @@ class UserController {
       return response.status(400).json(error)
     }
   }
+
+  async delete(request, response) {
+    try {
+      const admin = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(401).json({ err: 'you do not have permission' })
+    }
+
+    const { id } = request.params
+
+    try {
+      const user = await User.findByPk(id)
+      if (!user) {
+        throw new Error()
+      }
+    } catch (error) {
+      return response.status(400).json({ message: 'user does exist' })
+    }
+
+    try {
+      await User.destroy({ where: { id } })
+      return response.status(200).json({ message: 'deleted user ' })
+    } catch (error) {
+      console.log('error: ', error)
+      return response.status(400).json(error)
+    }
+  }
 }
 
 export default new UserController()

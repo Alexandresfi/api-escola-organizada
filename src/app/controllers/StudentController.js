@@ -127,6 +127,36 @@ class StundentController {
       return response.status(400).json(err)
     }
   }
+
+  async delete(request, response) {
+    try {
+      const admin = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(401).json({ err: 'you do not have permission' })
+    }
+
+    const { id } = request.params
+
+    try {
+      const student = await Student.findByPk(id)
+      if (!student) {
+        throw new Error()
+      }
+    } catch (error) {
+      return response.status(400).json({ message: 'student does exist' })
+    }
+
+    try {
+      await Student.destroy({ where: { id } })
+      return response.status(200).json({ message: 'deleted student ' })
+    } catch (error) {
+      console.log('error: ', error)
+      return response.status(400).json(error)
+    }
+  }
 }
 
 export default new StundentController()
