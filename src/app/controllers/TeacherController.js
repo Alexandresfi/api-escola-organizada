@@ -51,7 +51,7 @@ class TeacherController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     try {
@@ -62,7 +62,7 @@ class TeacherController {
       if (userExists) {
         return response.status(400).json({
           error:
-            'Por favor, verifique os emails, os dois ou um deles já está cadastrado',
+            'Please check the emails, both or one of them is already registered',
         })
       }
     } catch (err) {
@@ -97,6 +97,7 @@ class TeacherController {
         .json({ id: teacher.id, fullname, email, school_class })
     } catch (err) {
       console.log('error created teacher', err)
+      return response.status(400).json()
     }
   }
 
@@ -107,12 +108,99 @@ class TeacherController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     const teachers = await Teacher.findAll()
 
-    return response.json(teachers)
+    return response.status(200).json(teachers)
+  }
+
+  async update(request, response) {
+    const schema = Yup.object().shape({
+      fullname: Yup.string(),
+      surname: Yup.string(),
+      birthdate: Yup.string(),
+      gener: Yup.string(),
+      telephone: Yup.string().min(15).max(15),
+      number_card: Yup.string(),
+      cpf: Yup.string().min(14).max(14),
+      rg: Yup.string(),
+      university: Yup.string(),
+      graduation_year: Yup.string(),
+      graduation_titles: Yup.string(),
+      password: Yup.string().min(8),
+    })
+
+    try {
+      await schema.validateSync(request.body, { abortEarly: false })
+    } catch (err) {
+      return response.status(400).json({ err: err.errors })
+    }
+
+    const {
+      fullname,
+      surname,
+      gener,
+      telephone,
+      birthdate,
+      cpf,
+      rg,
+      number_card,
+      university,
+      graduation_titles,
+      graduation_year,
+      password,
+      school_class,
+      school_subjects,
+    } = request.body
+
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(401).json({ err: 'you do not have permission' })
+    }
+
+    const { id } = request.params
+
+    try {
+      const teacherExists = await Teacher.findByPk(id)
+      if (!teacherExists) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(400).json({ err: 'User does not exist' })
+    }
+
+    try {
+      await Teacher.update(
+        {
+          fullname,
+          surname,
+          gener,
+          birthdate,
+          telephone,
+          cpf,
+          rg,
+          number_card,
+          university,
+          graduation_year,
+          graduation_titles,
+          password,
+          school_class,
+          school_subjects,
+        },
+        { where: { id } }
+      )
+
+      return response.status(200).json()
+    } catch (err) {
+      console.log('error updated teacher', err)
+      return response.status(400).json(err)
+    }
   }
 }
 

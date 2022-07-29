@@ -34,7 +34,7 @@ class SessionAdminController {
       userEmailOrPasswordIncorrect()
     }
 
-    return response.json({
+    return response.status(200).json({
       id: user.id,
       fullname: user.fullname,
       email,
