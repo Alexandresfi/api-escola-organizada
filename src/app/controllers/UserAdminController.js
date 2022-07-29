@@ -21,6 +21,15 @@ class UserAdminController {
       return response.status(400).json({ err: err.errors })
     }
 
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(401).json({ err: 'you do not have permission' })
+    }
+
     const { fullname, email, telephone, cpf, rg, birthdate, password, gener } =
       request.body
 
@@ -32,11 +41,15 @@ class UserAdminController {
       if (userExists) {
         return response.status(400).json({
           error:
-            'Por favor, verifique os emails, os dois ou um deles já está cadastrado',
+            'Please check the emails, both or one of them is already registered',
         })
       }
     } catch (err) {
       console.log(err)
+      return response.status(400).json({
+        error:
+          'Please check the emails, both or one of them is already registered',
+      })
     }
 
     try {
@@ -57,6 +70,7 @@ class UserAdminController {
         .json({ id: user.id, fullname, email, type_acess: user.type_acess })
     } catch (err) {
       console.log(err)
+      return response.status(400).json()
     }
   }
 
@@ -67,7 +81,7 @@ class UserAdminController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     const users = await UserAdmin.findAll()
@@ -75,7 +89,68 @@ class UserAdminController {
     return response.json(users)
   }
 
-  async update(request, response) {}
+  async update(request, response) {
+    const schema = Yup.object().shape({
+      fullname: Yup.string(),
+      email: Yup.string().email(),
+      telephone: Yup.string().min(15).max(15),
+      cpf: Yup.string().min(14).max(14),
+      rg: Yup.string(),
+      birthdate: Yup.string(),
+      gener: Yup.string(),
+      password: Yup.string().min(8),
+    })
+
+    try {
+      await schema.validateSync(request.body, { abortEarly: false })
+    } catch (err) {
+      return response.status(400).json({ err: err.errors })
+    }
+
+    try {
+      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+      if (!admin) {
+        throw new Error()
+      }
+    } catch (err) {
+      return response.status(401).json({ err: 'you do not have permission' })
+    }
+
+    const { fullname, email, telephone, cpf, rg, birthdate, password, gener } =
+      request.body
+
+    const { id } = request.params
+
+    try {
+      const userAdmin = await UserAdmin.findByPk(id)
+      if (!userAdmin) {
+        throw new Error()
+      }
+    } catch (error) {
+      return response.status(400).json({ error: 'User does not exist' })
+    }
+
+    try {
+      await UserAdmin.update(
+        {
+          fullname,
+          email,
+          telephone,
+          cpf,
+          birthdate,
+          rg,
+          gener,
+          password,
+        },
+        { where: { id } }
+      )
+
+      return response.status(200).json()
+    } catch (err) {
+      console.log(err)
+      return response.status(400).json(err)
+    }
+  }
 }
 
 export default new UserAdminController()

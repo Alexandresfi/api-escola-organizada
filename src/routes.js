@@ -38,7 +38,7 @@ routes.put('/student/:id', StudentController.update)
 
 routes.post('/address', AddressController.store)
 routes.get('/address', AddressController.index)
-routes.put('/address', AddressController.update)
+routes.put('/address/:id', AddressController.update)
 
 routes.get('/', (request, response) => {
   return response.json({ message: 'Hello World' })

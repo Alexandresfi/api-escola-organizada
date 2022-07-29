@@ -32,7 +32,7 @@ class SessionTeacherController {
       userEmailOrPasswordIncorrect()
     }
 
-    return response.json({
+    return response.status(200).json({
       id: user.id,
       nome: user.surname,
       email,

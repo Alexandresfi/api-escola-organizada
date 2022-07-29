@@ -45,7 +45,7 @@ class UserController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     try {
@@ -58,31 +58,35 @@ class UserController {
     } catch (error) {
       return response.status(400).json({
         error:
-          'Por favor, verifique os emails, os dois ou um deles já está cadastrado',
+          'Please check the emails, both or one of them is already registered',
       })
     }
 
     const address_id = cpf_1
 
-    const user = await User.create({
-      id: v4(),
-      responsible_1,
-      email,
-      kinshi_1,
-      cpf_1,
-      telephone_1,
-      birthdate,
-      responsible_2,
-      kinshi_2,
-      cpf_2,
-      telephone_2,
-      password,
-      address_id,
-    })
+    try {
+      const user = await User.create({
+        id: v4(),
+        responsible_1,
+        email,
+        kinshi_1,
+        cpf_1,
+        telephone_1,
+        birthdate,
+        responsible_2,
+        kinshi_2,
+        cpf_2,
+        telephone_2,
+        password,
+        address_id,
+      })
 
-    return response
-      .status(201)
-      .json({ id: user.id, responsible_1, email, address_id })
+      return response
+        .status(201)
+        .json({ id: user.id, responsible_1, email, address_id })
+    } catch (error) {
+      return response.status(400).json(error)
+    }
   }
 
   async index(request, response) {
@@ -92,12 +96,12 @@ class UserController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     const users = await User.findAll()
 
-    return response.json(users)
+    return response.status(200).json(users)
   }
 
   async update(request, response) {
@@ -137,7 +141,7 @@ class UserController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     const { id } = request.params
@@ -150,7 +154,7 @@ class UserController {
       }
     } catch (error) {
       return response.status(400).json({
-        error: 'Usuário não existe',
+        error: 'User does not exist',
       })
     }
     try {
@@ -173,6 +177,7 @@ class UserController {
       return response.status(201).json()
     } catch (error) {
       console.log(error)
+      return response.status(400).json(error)
     }
   }
 }

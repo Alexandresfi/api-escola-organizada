@@ -51,7 +51,7 @@ class TeacherController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     try {
@@ -62,7 +62,7 @@ class TeacherController {
       if (userExists) {
         return response.status(400).json({
           error:
-            'Por favor, verifique os emails, os dois ou um deles já está cadastrado',
+            'Please check the emails, both or one of them is already registered',
         })
       }
     } catch (err) {
@@ -97,6 +97,7 @@ class TeacherController {
         .json({ id: teacher.id, fullname, email, school_class })
     } catch (err) {
       console.log('error created teacher', err)
+      return response.status(400).json()
     }
   }
 
@@ -107,12 +108,12 @@ class TeacherController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     const teachers = await Teacher.findAll()
 
-    return response.json(teachers)
+    return response.status(200).json(teachers)
   }
 
   async update(request, response) {
@@ -160,7 +161,7 @@ class TeacherController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(400).json({ err: 'Você não tem permissão' })
+      return response.status(401).json({ err: 'you do not have permission' })
     }
 
     const { id } = request.params
@@ -171,7 +172,7 @@ class TeacherController {
         throw new Error()
       }
     } catch (err) {
-      return response.status(401).json({ err: 'usuário não existe' })
+      return response.status(400).json({ err: 'User does not exist' })
     }
 
     try {
@@ -195,11 +196,10 @@ class TeacherController {
         { where: { id } }
       )
 
-      return response
-        .status(201)
-        .json({ message: 'usário alterado com sucesso!' })
+      return response.status(200).json()
     } catch (err) {
       console.log('error updated teacher', err)
+      return response.status(400).json(err)
     }
   }
 }
