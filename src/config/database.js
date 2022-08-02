@@ -1,7 +1,9 @@
-console.log('O banco de Dados >>>', process.env.DATABASE_URL)
 module.exports = {
   dialect: 'postgres',
-  url: process.env.DATABASE_URL,
+  host: 'localhost',
+  username: 'postgres',
+  password: 'escolaorganizada',
+  database: 'escolaorganizada',
   define: {
     timespamps: true,
     underscored: true,
