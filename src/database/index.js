@@ -1,12 +1,12 @@
-import Sequelize from 'sequelize'
+const Sequelize = require('sequelize')
 
-import Address from '../app/models/Address'
-import Student from '../app/models/Student'
-import Teacher from '../app/models/Teacher'
-import User from '../app/models/User'
-import UserAdmin from '../app/models/UserAdmin'
+const Address = require('../app/models/Address')
+const Student = require('../app/models/Student')
+const Teacher = require('../app/models/Teacher')
+const User = require('../app/models/User')
+const UserAdmin = require('../app/models/UserAdmin')
 
-import configDatabase from '../config/database'
+const configDatabase = require('../config/database')
 
 const models = [User, Teacher, Address, Student, UserAdmin]
 class Database {
@@ -24,4 +24,4 @@ class Database {
   }
 }
 
-export default new Database()
+module.exports = new Database()

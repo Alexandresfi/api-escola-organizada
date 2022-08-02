@@ -1,14 +1,14 @@
-import { Router } from 'express'
-import SessionController from './app/controllers/SessionController'
-import TeacherController from './app/controllers/TeacherController'
-import SessionTeacherController from './app/controllers/SessionTeacherController'
-import UserController from './app/controllers/UserController'
-import AddressController from './app/controllers/AddressController'
-import StudentController from './app/controllers/StudentController'
+const { Router } = require('express')
+const SessionController = require('./app/controllers/SessionController')
+const TeacherController = require('./app/controllers/TeacherController')
+const SessionTeacherController = require('./app/controllers/SessionTeacherController')
+const UserController = require('./app/controllers/UserController')
+const AddressController = require('./app/controllers/AddressController')
+const StudentController = require('./app/controllers/StudentController')
 
-import authMiddleware from './app/middlewares/auth'
-import UserAdminController from './app/controllers/UserAdminController'
-import SessionAdminController from './app/controllers/SessionAdminController'
+const authMiddleware = require('./app/middlewares/auth')
+const UserAdminController = require('./app/controllers/UserAdminController')
+const SessionAdminController = require('./app/controllers/SessionAdminController')
 
 const routes = new Router()
 
@@ -48,4 +48,4 @@ routes.get('/address', AddressController.index)
 routes.put('/address/:id', AddressController.update)
 routes.delete('/address/:id', AddressController.delete)
 
-export default routes
+module.exports = routes

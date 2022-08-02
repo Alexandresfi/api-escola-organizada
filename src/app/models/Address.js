@@ -1,5 +1,5 @@
-import Sequelize, { Model } from 'sequelize'
-
+const { Model } = require('sequelize')
+const Sequelize = require('sequelize')
 class Address extends Model {
   static init(sequelize) {
     super.init(
@@ -20,4 +20,4 @@ class Address extends Model {
   }
 }
 
-export default Address
+module.exports = Address

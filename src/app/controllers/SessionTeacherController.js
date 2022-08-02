@@ -1,7 +1,7 @@
-import * as Yup from 'yup'
-import Teacher from '../models/Teacher'
-import jwt from 'jsonwebtoken'
-import authConfig from '../../config/auth'
+const Yup = require('yup')
+const Teacher = require('../models/Teacher')
+const jwt = require('jsonwebtoken')
+const authConfig = require('../../config/auth')
 
 class SessionTeacherController {
   async store(request, response) {
@@ -44,4 +44,4 @@ class SessionTeacherController {
   }
 }
 
-export default new SessionTeacherController()
+module.exports = new SessionTeacherController()
