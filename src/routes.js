@@ -12,6 +12,9 @@ import SessionAdminController from './app/controllers/SessionAdminController'
 
 const routes = new Router()
 
+routes.get('/', (request, response) => {
+  return response.json({ message: 'Hello World' })
+})
 routes.post('/session', SessionController.store)
 
 routes.post('/session-admin', SessionAdminController.store)
@@ -44,9 +47,5 @@ routes.post('/address', AddressController.store)
 routes.get('/address', AddressController.index)
 routes.put('/address/:id', AddressController.update)
 routes.delete('/address/:id', AddressController.delete)
-
-routes.get('/', (request, response) => {
-  return response.json({ message: 'Hello World' })
-})
 
 export default routes
