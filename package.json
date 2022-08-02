@@ -10,7 +10,6 @@
     "debug": "nodemon --inspect"
   },
   "keywords": [],
-  "type":"module",
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken'
-import authConfig from '../../config/auth'
+const jwt = require('jsonwebtoken')
+const authConfig = require('../../config/auth')
 
-export default (request, response, next) => {
+module.exports = (request, response, next) => {
   const authToken = request.headers.authorization
 
   !authToken && response.status(401).json({ error: 'Token não foi enviado' })

@@ -1,7 +1,7 @@
-import { v4 } from 'uuid'
-import User from '../models/User'
-import * as Yup from 'yup'
-import UserAdmin from '../models/UserAdmin'
+const { v4 } = require('uuid')
+const User = require('../models/User')
+const Yup = require('yup')
+const UserAdmin = require('../models/UserAdmin')
 
 class UserController {
   async store(request, response) {
@@ -212,4 +212,4 @@ class UserController {
   }
 }
 
-export default new UserController()
+module.exports = new UserController()

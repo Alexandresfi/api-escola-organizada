@@ -1,5 +1,6 @@
-import Sequelize, { Model } from 'sequelize'
-import bcrypt from 'bcrypt'
+const { Model } = require('sequelize')
+const Sequelize = require('sequelize')
+const bcrypt = require('bcrypt')
 
 class Teacher extends Model {
   static init(sequelize) {
@@ -48,4 +49,4 @@ class Teacher extends Model {
   }
 }
 
-export default Teacher
+module.exports = Teacher

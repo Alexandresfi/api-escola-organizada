@@ -1,6 +1,6 @@
-import * as Yup from 'yup'
-import Address from '../models/Address'
-import UserAdmin from '../models/UserAdmin'
+const Yup = require('yup')
+const Address = require('../models/Address')
+const UserAdmin = require('../models/UserAdmin')
 
 class AddressController {
   async store(request, response) {
@@ -180,4 +180,4 @@ class AddressController {
   }
 }
 
-export default new AddressController()
+module.exports = new AddressController()

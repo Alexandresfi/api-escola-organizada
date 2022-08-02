@@ -1,7 +1,7 @@
-import * as Yup from 'yup'
-import Student from '../models/Student'
-import UserAdmin from '../models/UserAdmin'
-import Teacher from '../models/Teacher'
+const Yup = require('yup')
+const Student = require('../models/Student')
+const UserAdmin = require('../models/UserAdmin')
+const Teacher = require('../models/Teacher')
 
 class StundentController {
   async store(request, response) {
@@ -159,4 +159,4 @@ class StundentController {
   }
 }
 
-export default new StundentController()
+module.exports = new StundentController()

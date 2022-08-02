@@ -1,9 +1,9 @@
-import * as Yup from 'yup'
+const Yup = require('yup')
 
-import jwt from 'jsonwebtoken'
-import authConfig from '../../config/auth'
+const jwt = require('jsonwebtoken')
+const authConfig = require('../../config/auth')
 
-import UserAdmin from '../models/UserAdmin'
+const UserAdmin = require('../models/UserAdmin')
 
 class SessionAdminController {
   async store(request, response) {
@@ -46,4 +46,4 @@ class SessionAdminController {
   }
 }
 
-export default new SessionAdminController()
+module.exports = new SessionAdminController()
