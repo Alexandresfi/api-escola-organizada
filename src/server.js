@@ -3,6 +3,8 @@ const app = require('./app')
 
 dotenv.config()
 
-app.listen(process.env.PORT || 3001, () => {
+console.log(process.env.DATABASE_PORT)
+
+app.listen(process.env.DATABASE_PORT || 3001, () => {
   console.log('🚀 Running server')
 })
