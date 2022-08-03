@@ -21,7 +21,7 @@ routes.post('/session-admin', SessionAdminController.store)
 
 routes.post('/session-teacher', SessionTeacherController.store)
 
-routes.use(authMiddleware)
+// routes.use(authMiddleware)
 
 routes.post('/user', UserController.store)
 routes.get('/users', UserController.index)
