@@ -27,14 +27,14 @@ class StundentController {
       school_attendance,
     } = request.body
 
-    try {
-      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
-      if (!admin) {
-        throw new Error()
-      }
-    } catch (err) {
-      return response.status(401).json({ err: 'you do not have permission' })
-    }
+    // try {
+    //   const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+    //   if (!admin) {
+    //     throw new Error()
+    //   }
+    // } catch (err) {
+    //   return response.status(401).json({ err: 'you do not have permission' })
+    // }
 
     try {
       const student = await Student.create({

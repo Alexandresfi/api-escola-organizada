@@ -17,14 +17,14 @@ class AddressController {
       state: Yup.string().required(),
     })
 
-    try {
-      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
-      if (!admin) {
-        throw new Error()
-      }
-    } catch (err) {
-      return response.status(400).json({ err: 'you do not have permission' })
-    }
+    // try {
+    //   const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+    //   if (!admin) {
+    //     throw new Error()
+    //   }
+    // } catch (err) {
+    //   return response.status(400).json({ err: 'you do not have permission' })
+    // }
 
     try {
       await schema.validateSync(request.body, { abortEarly: false })

@@ -21,14 +21,14 @@ class UserAdminController {
       return response.status(400).json({ err: err.errors })
     }
 
-    try {
-      const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
-      if (!admin) {
-        throw new Error()
-      }
-    } catch (err) {
-      return response.status(401).json({ err: 'you do not have permission' })
-    }
+    // try {
+    //   const { type_acess: admin } = await UserAdmin.findByPk(request.userID)
+    //   if (!admin) {
+    //     throw new Error()
+    //   }
+    // } catch (err) {
+    //   return response.status(401).json({ err: 'you do not have permission' })
+    // }
 
     const { fullname, email, telephone, cpf, rg, birthdate, password, gener } =
       request.body
