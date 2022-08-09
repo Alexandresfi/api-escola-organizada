@@ -41,7 +41,7 @@ Está API conecta-se a um banco de dados Postgress 🐘, sendo possível criar, 
     📋 Pré-requisitos
 </h2>
 
-<p> Você precisará ter o node js e o git instalados na sua máquina</p>
+<p> Você precisará ter o node e o git instalados na sua máquina</p>
 
 
 <h2>
