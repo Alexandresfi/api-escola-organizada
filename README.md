@@ -3,7 +3,7 @@
 <h2> Este é um projeto pessoal, que será integrado com o projeto <a href="https://github.com/Alexandresfi/EscolaOrganizada"> Escola Organizada </a> </h2>
 
 <h3> 
-  A função desta API é guardar e gerenciar informações sobre a vida academica dos estudantes de qualquer escola de ensino regular. 
+  A função desta API é guardar e gerenciar informações sobre a vida acadêmica dos estudantes de qualquer escola de ensino regular. 
 Está API conecta-se a um banco de dados Postgress 🐘, sendo possível criar, ler, atualizar e deletar informações do dado de dados.
 <br> <br>
 > obs: está API está em produção, <a href=""https://api-escola-organizada.herokuapp.com/ > Acesse aqui </a>
