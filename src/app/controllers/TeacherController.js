@@ -2,6 +2,7 @@ const { v4 } = require('uuid')
 const Yup = require('yup')
 const Teacher = require('../models/Teacher')
 const UserAdmin = require('../models/UserAdmin')
+const Address = require('../models/Address')
 
 class TeacherController {
   async store(request, response) {
@@ -111,9 +112,31 @@ class TeacherController {
       return response.status(401).json({ err: 'you do not have permission' })
     }
 
-    const teachers = await Teacher.findAll()
+    try {
+      const teachers = await Teacher.findAll({
+      include: [
+        {
+          model: Address,
+          as: 'address',
+          attributes: [
+            'zip_code',
+            'street',
+            'house_number',
+            'complement',
+            'city',
+            'district',
+            'state',
+          ],
+        },
+      ],
+    })
 
     return response.status(200).json(teachers)
+    } catch (error) {
+      return response.status(400).json({ err: error })
+    }
+
+    
   }
 
   async update(request, response) {
@@ -122,7 +145,7 @@ class TeacherController {
       surname: Yup.string(),
       birthdate: Yup.string(),
       gener: Yup.string(),
-      telephone: Yup.string().min(15).max(15),
+      telephone: Yup.string().min(14).max(15),
       number_card: Yup.string(),
       cpf: Yup.string().min(14).max(14),
       rg: Yup.string(),

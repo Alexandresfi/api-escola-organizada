@@ -1,5 +1,6 @@
 const { v4 } = require('uuid')
 const User = require('../models/User')
+const Address = require('../models/Address')
 const Yup = require('yup')
 const UserAdmin = require('../models/UserAdmin')
 
@@ -99,7 +100,23 @@ class UserController {
       return response.status(401).json({ err: 'you do not have permission' })
     }
 
-    const users = await User.findAll()
+    const users = await User.findAll({
+      include: [
+        {
+          model: Address,
+          as: 'address',
+          attributes: [
+            'zip_code',
+            'street',
+            'house_number',
+            'complement',
+            'city',
+            'district',
+            'state',
+          ],
+        },
+      ],
+    })
 
     return response.status(200).json(users)
   }
