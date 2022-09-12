@@ -2,6 +2,7 @@ const Yup = require('yup')
 const Student = require('../models/Student')
 const UserAdmin = require('../models/UserAdmin')
 const Teacher = require('../models/Teacher')
+const User = require('../models/User')
 
 class StundentController {
   async store(request, response) {
@@ -53,22 +54,14 @@ class StundentController {
     }
   }
 
-  async index(request, response) {
+  async index(response) {
     try {
-      const admin = await UserAdmin.findByPk(request.userID)
-      const teacher = await Teacher.findByPk(request.userID)
-      if (!admin) {
-        if (teacher.type_acess !== 'teacher') {
-          throw new Error()
-        }
-      }
-    } catch (err) {
-      return response.status(401).json({ err: 'you do not have permission' })
+      const students = await Student.findAll()
+
+      return response.json(students)
+    } catch (error) {
+      return response.status(400).json({ err: error })
     }
-
-    const students = await Student.findAll()
-
-    return response.json(students)
   }
 
   async update(request, response) {

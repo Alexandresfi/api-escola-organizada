@@ -1,6 +1,7 @@
 const { v4 } = require('uuid')
 const Yup = require('yup')
 const UserAdmin = require('../models/UserAdmin')
+const Address = require('../models/Address')
 
 class UserAdminController {
   async store(request, response) {
@@ -84,9 +85,15 @@ class UserAdminController {
       return response.status(401).json({ err: 'you do not have permission' })
     }
 
-    const users = await UserAdmin.findAll()
+    try {
+      const users = await UserAdmin.findAll()
 
     return response.json(users)
+    } catch (error) {
+      return response.status(401).json({ err: error })
+    }
+
+    
   }
 
   async update(request, response) {
