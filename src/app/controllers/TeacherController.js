@@ -114,29 +114,27 @@ class TeacherController {
 
     try {
       const teachers = await Teacher.findAll({
-      include: [
-        {
-          model: Address,
-          as: 'address',
-          attributes: [
-            'zip_code',
-            'street',
-            'house_number',
-            'complement',
-            'city',
-            'district',
-            'state',
-          ],
-        },
-      ],
-    })
+        include: [
+          {
+            model: Address,
+            as: 'address',
+            attributes: [
+              'zip_code',
+              'street',
+              'house_number',
+              'complement',
+              'city',
+              'district',
+              'state',
+            ],
+          },
+        ],
+      })
 
-    return response.status(200).json(teachers)
+      return response.status(200).json(teachers)
     } catch (error) {
       return response.status(400).json({ err: error })
     }
-
-    
   }
 
   async update(request, response) {
@@ -221,7 +219,6 @@ class TeacherController {
 
       return response.status(200).json()
     } catch (err) {
-      console.log('error updated teacher', err)
       return response.status(400).json(err)
     }
   }
