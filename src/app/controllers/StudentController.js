@@ -52,7 +52,7 @@ class StundentController {
     }
   }
 
-  async index(response) {
+  async index(request, response) {
     try {
       const students = await Student.findAll()
 
