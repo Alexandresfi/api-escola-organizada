@@ -1,8 +1,6 @@
 const Yup = require('yup')
 const Student = require('../models/Student')
 const UserAdmin = require('../models/UserAdmin')
-const Teacher = require('../models/Teacher')
-const User = require('../models/User')
 
 class StundentController {
   async store(request, response) {
