@@ -6,7 +6,9 @@
   A função desta API é guardar e gerenciar informações sobre a vida acadêmica dos estudantes de qualquer escola de ensino regular. 
 Está API conecta-se a um banco de dados Postgress 🐘, sendo possível criar, ler, atualizar e deletar informações do dado de dados.
 <br> <br>
-> obs: atualmente o projeto está em pausado, pois a heroku não possui mais hospedagem gratuíta, mas em breve voltarei a coloca-lo em produção.
+Está api está hospedada na cyclic, caso queria dar uma olhada <a href="
+https://escola-organizada-api.cyclic.app" target="_blank">acesse</a> Porém se você quiser vem ela em ação acesse o projeto <a href="homolog-escolaorganizada.netlify.app" target="_blank"> Escola Organizada </a>
+para ter acesso a um usuário, me chama no <a href="https://www.linkedin.com/in/alexandrenascimentofrontend/" target="_blank">LinkedIn</a> linkedIn.
 </h3>
 
 <h2>
